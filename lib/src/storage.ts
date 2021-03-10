@@ -2,16 +2,18 @@ import { Dexie } from 'dexie';
 
 type Type = 'primitive' | 'set' | 'oset';
 
+export type HistoryRecord = {
+  action: string;
+  hash: string;
+  previousNode?: string;
+  createdAt: Date;
+  lamportClock: number;
+};
+
 type Data = {
   id: string;
   type: Type;
-  history: {
-    action: string;
-    hash: string;
-    previousNode?: string;
-    createdAt: Date;
-    lamportClock: number;
-  }[];
+  history: HistoryRecord[];
 };
 
 export class Storage extends Dexie {

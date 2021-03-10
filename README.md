@@ -87,7 +87,7 @@ If all the mutating operations satisfy the following conditions, the data is con
 
 The `commutative` property ensures that the histories can be delivered in any order. The `idempotent` property ensures if a change is delivered multiple times, the final effect would be the same.
 
-Examples are counter and unorderd set.
+Examples are counter and growth-only unorderd set.
 
 #### Naturally Unconcurrent Data
 
