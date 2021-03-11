@@ -1,5 +1,5 @@
 import { HistoryRecord, Storage } from './storage';
-import { createUid } from './utils';
+import { createHash, createUid } from './utils';
 
 type PrimitiveData = string | number;
 
@@ -134,7 +134,8 @@ export class Engine<TSet = any> {
         action: val.toString(),
       };
       // TODO
-      const hash = this._storage.data.put({
+      const hash = await createHash(history);
+      this._storage.data.put({
         type: 'primitive',
         id: createUid(),
         history: [

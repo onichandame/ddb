@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "dexie": "^3.0.3",
+    "isomorphic-webcrypto": "^2.3.8",
     "uuid": "^8.3.2"
   }
 }
