@@ -1,15 +1,23 @@
 import { createHash } from '../utils';
 
-export type Record = {
+export class Record {
+  private _hashPromise: Promise<string>;
+
   action: string;
-  hash: string;
-  previousNode?: string;
   createdAt: Date;
   lamportClock: number;
-};
+  previousRecord?: Record;
+  constructor(action: string, previousRecord?: Record) {
+    this.action = action;
+    this.createdAt = new Date();
+    this.lamportClock = previousRecord?.lamportClock || -1 + 1;
+    this.previousRecord = previousRecord;
+    const preparePayloadForHash = () =>
+      [this.action, this.lamportClock, this.createdAt.getTime()].join(`:`);
+    this._hashPromise = createHash(preparePayloadForHash());
+  }
 
-export type UnhashedRecord = Omit<Record, 'hash'>;
-
-export const createRecord = async (input: UnhashedRecord) => {
-  const hash = await createHash(input);
-};
+  getHash() {
+    return this._hashPromise;
+  }
+}
